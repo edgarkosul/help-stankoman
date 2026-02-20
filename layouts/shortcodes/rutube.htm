@@ -1,0 +1,33 @@
+{{- $id := .Get "id" | default "" -}}
+{{- $url := .Get "url" | default "" -}}
+{{- $params := .Get "params" | default "" -}} {{/* например bmstart=45 */}}
+{{- $title := .Get "title" | default "" -}}
+
+{{- $embed := "" -}}
+{{- if $url -}}
+  {{- $embed = $url -}}
+{{- else -}}
+  {{- $embed = printf "https://rutube.ru/play/embed/%s/" $id -}}
+{{- end -}}
+
+{{- if $params -}}
+  {{- if in $embed "?" -}}
+    {{- $embed = printf "%s&%s" $embed $params -}}
+  {{- else -}}
+    {{- $embed = printf "%s?%s" $embed $params -}}
+  {{- end -}}
+{{- end -}}
+
+<figure style="margin: 1rem 0;">
+  {{ with $title }}<figcaption style="margin-bottom:.5rem;font-weight:600;">{{ . }}</figcaption>{{ end }}
+  <div style="width:100%; aspect-ratio:16/9; position:relative;">
+    <iframe
+      src="{{ $embed }}"
+      style="border:none; width:100%; height:100%; position:absolute; inset:0;"
+      allow="clipboard-write; autoplay"
+      webkitAllowFullScreen
+      mozallowfullscreen
+      allowfullscreen></iframe>
+  </div>
+</figure>
+

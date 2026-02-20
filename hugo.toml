@@ -1,0 +1,15 @@
+baseURL = "https://help.stankoman.ru/"
+languageCode = "ru-ru"
+title = "Stankoman Help"
+theme = "hugo-theme-techdoc"
+
+[params]
+description = "База знаний и инструкции"
+menu_style = "open-menu"
+algolia_search_enable = false
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark.renderer]
+    unsafe = true
+
