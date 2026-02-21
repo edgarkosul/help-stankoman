@@ -1,16 +1,16 @@
 baseURL = "https://help.stankoman.ru/"
 languageCode = "ru-ru"
 title = "Stankoman Help"
-theme = "hugo-theme-techdoc"
+theme = "hugo-book"
 
 [params]
 description = "База знаний и инструкции"
-menu_style = "slide-menu"
-algolia_search_enable = false
-dateformat = ":date_medium"
+BookTheme = "auto"
+BookSearch = true
+BookToC = true
+BookSection = "*"
 
 [markup]
   defaultMarkdownHandler = "goldmark"
   [markup.goldmark.renderer]
     unsafe = true
-
