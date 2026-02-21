@@ -5,7 +5,7 @@ theme = "hugo-theme-techdoc"
 
 [params]
 description = "База знаний и инструкции"
-menu_style = "open-menu"
+menu_style = "slide-menu"
 algolia_search_enable = false
 dateformat = ":date_medium"
 

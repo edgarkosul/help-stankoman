@@ -14,6 +14,7 @@
 {{- define "pagination" -}}
   {{- $currentNode := .currentnode -}}
   {{- $menu_exclusion := .menu_exclusion -}}
+  {{- $skipFromPagination := or (in $menu_exclusion .menu.Section) .menu.Params.menu_nolink -}}
 
   {{- if hasPrefix $currentNode.Permalink .menu.Permalink -}}
     {{- $currentNode.Scratch.Set "NextPageOK" "OK" -}}
@@ -24,14 +25,16 @@
     {{- end -}}
   {{- else -}}
     {{- if eq ($currentNode.Scratch.Get "NextPageOK") "OK" -}}
-      {{- $currentNode.Scratch.Set "NextPageOK" nil -}}
-      {{- if not (in $menu_exclusion .menu.Section) -}}
+      {{- if not $skipFromPagination -}}
+        {{- $currentNode.Scratch.Set "NextPageOK" nil -}}
         {{- $currentNode.Scratch.Set "nextPage" .menu -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
 
-  {{- $currentNode.Scratch.Set "prevPageTmp" .menu -}}
+  {{- if not $skipFromPagination -}}
+    {{- $currentNode.Scratch.Set "prevPageTmp" .menu -}}
+  {{- end -}}
   {{- $currentNode.Scratch.Set "pages" .menu.Pages -}}
 
   {{- if .menu.IsHome -}}
