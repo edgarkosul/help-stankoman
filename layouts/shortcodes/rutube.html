@@ -2,12 +2,13 @@
 {{- $url := .Get "url" | default "" -}}
 {{- $params := .Get "params" | default "" -}} {{/* например bmstart=45 */}}
 {{- $title := .Get "title" | default "" -}}
+{{- $video := "" -}}
 
 {{- $embed := "" -}}
 {{- if $url -}}
   {{- $embed = $url -}}
 {{- else -}}
-  {{- $embed = printf "https://rutube.ru/play/embed/%s/" $id -}}
+  {{- $embed = printf "https://rutube.ru/play/embed/%s" $id -}}
 {{- end -}}
 
 {{- if $params -}}
@@ -18,16 +19,24 @@
   {{- end -}}
 {{- end -}}
 
-<figure style="margin: 1rem 0;">
-  {{ with $title }}<figcaption style="margin-bottom:.5rem;font-weight:600;">{{ . }}</figcaption>{{ end }}
-  <div style="width:100%; aspect-ratio:16/9; position:relative;">
+{{- if $id -}}
+  {{- $video = printf "https://rutube.ru/video/%s/" $id -}}
+{{- end -}}
+
+<figure style="margin:1rem 0">
+  {{ with $title }}<figcaption style="margin-bottom:.5rem;font-weight:600">{{ . }}</figcaption>{{ end }}
+  <div style="position:relative; padding-top:56.25%; overflow:hidden;">
     <iframe
       src="{{ $embed }}"
-      style="border:none; width:100%; height:100%; position:absolute; inset:0;"
-      allow="clipboard-write; autoplay"
-      webkitAllowFullScreen
-      mozallowfullscreen
-      allowfullscreen></iframe>
+      frameborder="0"
+      allow="autoplay; clipboard-write; fullscreen; picture-in-picture"
+      allowfullscreen
+      style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+      loading="lazy"
+    ></iframe>
   </div>
+  {{ with $video }}
+    <p style="margin:.5rem 0 0">Если плеер не загрузился: <a href="{{ . }}" target="_blank" rel="noopener">открыть на Rutube</a></p>
+  {{ end }}
 </figure>
 
