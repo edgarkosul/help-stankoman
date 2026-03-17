@@ -2,6 +2,7 @@ baseURL = "https://help.stankoman.ru/"
 languageCode = "ru-ru"
 title = "Stankoman Help"
 theme = "hugo-book"
+buildFuture = true
 
 [params]
 description = "База знаний и инструкции"
